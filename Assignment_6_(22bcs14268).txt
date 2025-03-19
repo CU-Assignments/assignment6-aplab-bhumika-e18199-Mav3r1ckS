@@ -1,0 +1,135 @@
+import java.util.*;
+
+// 1. Implement Queue using Stack
+
+class QueueUsingStack {
+    private Stack<Integer> stack1 = new Stack<>();
+    private Stack<Integer> stack2 = new Stack<>();
+
+    public void enqueue(int x) {
+        stack1.push(x);
+    }
+
+    public int dequeue() {
+        if (stack2.isEmpty()) {
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+        return stack2.isEmpty() ? -1 : stack2.pop();
+    }
+}
+
+// 2. Implement Deque using Stack
+
+class DequeUsingStack {
+    private Stack<Integer> frontStack = new Stack<>();
+    private Stack<Integer> backStack = new Stack<>();
+
+    public void pushFront(int x) {
+        frontStack.push(x);
+    }
+
+    public void pushBack(int x) {
+        backStack.push(x);
+    }
+
+    public int popFront() {
+        if (frontStack.isEmpty()) {
+            while (!backStack.isEmpty()) {
+                frontStack.push(backStack.pop());
+            }
+        }
+        return frontStack.isEmpty() ? -1 : frontStack.pop();
+    }
+
+    public int popBack() {
+        if (backStack.isEmpty()) {
+            while (!frontStack.isEmpty()) {
+                backStack.push(frontStack.pop());
+            }
+        }
+        return backStack.isEmpty() ? -1 : backStack.pop();
+    }
+}
+
+// 3. Implement Min Stack using Two Stacks
+
+class MinStack {
+    private Stack<Integer> stack = new Stack<>();
+    private Stack<Integer> minStack = new Stack<>();
+
+    public void push(int x) {
+        stack.push(x);
+        if (minStack.isEmpty() || x <= minStack.peek()) {
+            minStack.push(x);
+        }
+    }
+
+    public void pop() {
+        if (!stack.isEmpty()) {
+            if (stack.pop().equals(minStack.peek())) {
+                minStack.pop();
+            }
+        }
+    }
+
+    public int top() {
+        return stack.isEmpty() ? -1 : stack.peek();
+    }
+
+    public int getMin() {
+        return minStack.isEmpty() ? -1 : minStack.peek();
+    }
+}
+
+// 4. Implement Max Stack using Two Stacks
+
+class MaxStack {
+    private Stack<Integer> stack = new Stack<>();
+    private Stack<Integer> maxStack = new Stack<>();
+
+    public void push(int x) {
+        stack.push(x);
+        if (maxStack.isEmpty() || x >= maxStack.peek()) {
+            maxStack.push(x);
+        }
+    }
+
+    public void pop() {
+        if (!stack.isEmpty()) {
+            if (stack.pop().equals(maxStack.peek())) {
+                maxStack.pop();
+            }
+        }
+    }
+
+    public int top() {
+        return stack.isEmpty() ? -1 : stack.peek();
+    }
+
+    public int getMax() {
+        return maxStack.isEmpty() ? -1 : maxStack.peek();
+    }
+}
+
+// 5. Implement Priority Queue using Stack
+
+class PriorityQueueUsingStack {
+    private Stack<Integer> stack = new Stack<>();
+
+    public void push(int x) {
+        Stack<Integer> tempStack = new Stack<>();
+        while (!stack.isEmpty() && stack.peek() > x) {
+            tempStack.push(stack.pop());
+        }
+        stack.push(x);
+        while (!tempStack.isEmpty()) {
+            stack.push(tempStack.pop());
+        }
+    }
+
+    public int pop() {
+        return stack.isEmpty() ? -1 : stack.pop();
+    }
+}
